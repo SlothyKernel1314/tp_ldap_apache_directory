@@ -64,6 +64,11 @@ public class LdapQueries {
         assertTrue(connection.exists("cn="+cn+", ou=adm, "+domain+""));
     }
 
+    public void deletePerson(LdapConnection connection, String domain, String cn) throws Exception {
+
+        connection.delete("cn="+cn+", ou=adm, "+domain+"");
+    }
+
     private void assertTrue(boolean exists) {
     }
 }
