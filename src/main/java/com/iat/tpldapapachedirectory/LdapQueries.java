@@ -86,6 +86,16 @@ public class LdapQueries {
         connection.modify("cn="+cn+", ou=adm, "+domain+"", removedGivenName, removedInitials);
     }
 
+    public void replaceAttributesToPerson(LdapConnection connection, String domain, String cn, String attributeId1,
+                                          String value1, String attributeId2, String value2) throws LdapException {
+        Modification replacedGivenName = new DefaultModification(ModificationOperation.REPLACE_ATTRIBUTE,
+                attributeId1, value1);
+        Modification replacedInitials = new DefaultModification(ModificationOperation.REPLACE_ATTRIBUTE,
+                attributeId2, value2);
+
+        connection.modify("cn="+cn+", ou=adm, "+domain+"", replacedGivenName, replacedInitials);
+    }
+
     private void assertTrue(boolean exists) {
     }
 }

@@ -33,12 +33,14 @@ public class TpldapapachedirectoryApplication {
 
 //        ldapQueries.findAllAdm(connection, DOMAIN);
 //        ldapQueries.findAllPersons(connection, DOMAIN);
-        ldapQueries.addPerson(connection, DOMAIN, "kmitroglou", "Mitroglou");
+//        ldapQueries.addPerson(connection, DOMAIN, "kmitroglou", "Mitroglou");
 //        ldapQueries.deletePerson(connection, DOMAIN, "kmitroglou");
-        ldapQueries.addAttributesToPerson(connection, DOMAIN, "kmitroglou",
-                "givenName", "Mitroflop", "initials", "KM");
+//        ldapQueries.addAttributesToPerson(connection, DOMAIN, "kmitroglou",
+//                "givenName", "Mitroflop", "initials", "KM");
 //        ldapQueries.removeAttributesToPerson(connection, DOMAIN, "kmitroglou",
 //                "givenName", "initials");
+//        ldapQueries.replaceAttributesToPerson(connection, DOMAIN, "kmitroglou",
+//                "givenName", "Gronaldo", "initials", "MK");
 
         // END QUERIES =================================================================================================
 
