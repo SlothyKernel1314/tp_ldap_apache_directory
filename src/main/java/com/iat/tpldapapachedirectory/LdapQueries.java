@@ -2,8 +2,7 @@ package com.iat.tpldapapachedirectory;
 
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.EntryCursor;
-import org.apache.directory.api.ldap.model.entry.DefaultEntry;
-import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.entry.*;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
@@ -67,6 +66,16 @@ public class LdapQueries {
     public void deletePerson(LdapConnection connection, String domain, String cn) throws Exception {
 
         connection.delete("cn="+cn+", ou=adm, "+domain+"");
+    }
+
+    public void addAttributesToPerson(LdapConnection connection, String domain, String cn, String attributeId1,
+                                      String value1, String attributeId2, String value2) throws LdapException {
+        Modification addedGivenName = new DefaultModification(ModificationOperation.ADD_ATTRIBUTE, attributeId1,
+                value1);
+        Modification addedInitials = new DefaultModification(ModificationOperation.ADD_ATTRIBUTE, attributeId2,
+                value2);
+
+        connection.modify("cn="+cn+", ou=adm, "+domain+"", addedGivenName, addedInitials);
     }
 
     private void assertTrue(boolean exists) {
