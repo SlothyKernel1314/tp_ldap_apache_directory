@@ -37,6 +37,8 @@ public class TpldapapachedirectoryApplication {
 //        ldapQueries.deletePerson(connection, DOMAIN, "kmitroglou");
         ldapQueries.addAttributesToPerson(connection, DOMAIN, "kmitroglou",
                 "givenName", "Mitroflop", "initials", "KM");
+//        ldapQueries.removeAttributesToPerson(connection, DOMAIN, "kmitroglou",
+//                "givenName", "initials");
 
         // END QUERIES =================================================================================================
 
