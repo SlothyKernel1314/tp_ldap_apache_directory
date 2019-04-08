@@ -3,8 +3,11 @@ package com.iat.tpldapapachedirectory;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapNetworkConnection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 public class TpldapapachedirectoryApplication {
@@ -13,45 +16,44 @@ public class TpldapapachedirectoryApplication {
 
     public static void main(String[] args) throws Exception {
 
-        final String DOMAIN = "dc=world-company,dc=org";
-        final String PASSWORD = "secret";
-
         SpringApplication.run(TpldapapachedirectoryApplication.class, args);
 
-        // Opening a connection
-        LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
+        // CREATE CONNECTION TO LDAP ===================================================================================
 
-        try {
-            // Secure binding
-            connection.bind("cn=admin,"+DOMAIN, PASSWORD);
-        } catch (LdapException e) {
-            e.printStackTrace();
-        }
+        ConnectionService connectionService = new ConnectionService();
 
-        // TEST CASES =====================================================================================================
+        String domain = connectionService.getDomain();
+
+        LdapConnection connection = connectionService.bindingConnection();
+
+        // CREATE CONNECTION TO LDAP DONE ==============================================================================
+
+
+        // TEST CASES ==================================================================================================
 
         LdapQueries ldapQueries = new LdapQueries();
-
-//        ldapQueries.findAllAdm(connection, DOMAIN);
-//        ldapQueries.findAllPersons(connection, DOMAIN);
-//        ldapQueries.addPerson(connection, DOMAIN, "kmitroglou", "Mitroglou");
-//        ldapQueries.deletePerson(connection, DOMAIN, "kmitroglou");
-//        ldapQueries.addAttributesToPerson(connection, DOMAIN, "kmitroglou",
+//
+        ldapQueries.findAllAdm(connection, domain);
+//        ldapQueries.findAllPersons(connection, domain);
+//        ldapQueries.addPerson(connection, domain, "kmitroglou", "Mitroglou");
+//        ldapQueries.deletePerson(connection, domain, "kmitroglou");
+//        ldapQueries.addAttributesToPerson(connection, domain, "kmitroglou",
 //                "givenName", "Mitroflop", "initials", "KM");
-//        ldapQueries.removeAttributesToPerson(connection, DOMAIN, "kmitroglou",
+//        ldapQueries.removeAttributesToPerson(connection, domain, "kmitroglou",
 //                "givenName", "initials");
-//        ldapQueries.replaceAttributesToPerson(connection, DOMAIN, "kmitroglou",
+//        ldapQueries.replaceAttributesToPerson(connection, domain, "kmitroglou",
 //                "givenName", "Gronaldo", "initials", "MK");
 //        ldapQueries.moveAndRenamePerson(connection, "cn=kmitroglou,ou=adm,dc=vinci-melun,dc=org",
 //                "cn=kmitroglou,ou=profs,dc=vinci-melun,dc=org", true);
 
-        // END TEST CASES =================================================================================================
+        // END TEST CASES ==============================================================================================
 
-        // unbinding
-        connection.unBind();
 
-        // CLosing the connection
-        connection.close();
+        // CLOSE CONNECTION TO LDAP ====================================================================================
+
+        connectionService.closeConnection(connection);
+
+        // CLOSE CONNECTION TO LDAP DONE ===============================================================================
     }
 
 }

@@ -170,4 +170,5 @@ public class LdapQueries {
 
     // TODO : creation d'une "ou"
     // TODO : creation d'une "ou" + une "ou" enfant
+    // TODO : classe de connection
 }
