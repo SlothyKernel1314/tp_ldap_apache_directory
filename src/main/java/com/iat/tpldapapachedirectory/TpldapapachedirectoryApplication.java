@@ -9,8 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TpldapapachedirectoryApplication {
 
-    public static void main(String[] args) throws Exception {
+    // doc : https://directory.apache.org/api/gen-docs/latest2/apidocs/
 
+    public static void main(String[] args) throws Exception {
 
         final String DOMAIN = "dc=world-company,dc=org";
         final String PASSWORD = "secret";
@@ -27,7 +28,7 @@ public class TpldapapachedirectoryApplication {
             e.printStackTrace();
         }
 
-        // QUERIES =====================================================================================================
+        // TEST CASES =====================================================================================================
 
         LdapQueries ldapQueries = new LdapQueries();
 
@@ -41,8 +42,10 @@ public class TpldapapachedirectoryApplication {
 //                "givenName", "initials");
 //        ldapQueries.replaceAttributesToPerson(connection, DOMAIN, "kmitroglou",
 //                "givenName", "Gronaldo", "initials", "MK");
+//        ldapQueries.moveAndRenamePerson(connection, "cn=kmitroglou,ou=adm,dc=vinci-melun,dc=org",
+//                "cn=kmitroglou,ou=profs,dc=vinci-melun,dc=org", true);
 
-        // END QUERIES =================================================================================================
+        // END TEST CASES =================================================================================================
 
         // unbinding
         connection.unBind();
