@@ -6,9 +6,11 @@ import org.apache.directory.api.ldap.model.entry.*;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@Component
 public class LdapQueries {
 
     /**
