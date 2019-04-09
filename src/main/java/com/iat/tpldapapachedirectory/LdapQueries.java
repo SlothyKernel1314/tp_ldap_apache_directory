@@ -190,9 +190,22 @@ public class LdapQueries {
         cursor.close();
     }
 
-    private void assertTrue(boolean exists) {
+    /**
+     * Add an entry (an organizational unit) to the LDAP server
+     * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
+     * @param domain : a LDAP domain
+     * @param ou : an organizational unit
+     */
+    public void addOu(LdapConnection connection, String domain, String ou) throws LdapException {
+        connection.add(
+                new DefaultEntry(
+                        "ou="+ou+", "+domain+"", // the dn
+                        "ObjectClass: organizationalUnit",
+                        "ObjectClass: top",
+                        "ou: "+ou+"") );
+
+        assertTrue(connection.exists("ou="+ou+", "+domain+""));
     }
 
-    // TODO : creation d'une "ou"
-    // TODO : creation d'une "ou" + une "ou" enfant
+    private void assertTrue(boolean exists) { }
 }
