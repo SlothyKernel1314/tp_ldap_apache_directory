@@ -167,10 +167,32 @@ public class LdapQueries {
         connection.moveAndRename(oldDn, newDn, deleteOldDn);
     }
 
+    /**
+     * Performs search using a search of all organizational unit in a LDAP domain (SearchScope.SearchScope.ONELEVEL)
+     * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
+     * @param domain : a LDAP domain
+     */
+    public void findAllOu(LdapConnection connection, String domain) throws LdapException, CursorException, IOException {
+
+        EntryCursor cursor = connection.search(domain, "(objectclass=organizationalUnit)", SearchScope.ONELEVEL, "*" );
+        int nbrEntries = 0;
+
+        while (cursor.next())
+
+        {
+            Entry entry = cursor.get();
+            System.out.println(entry);
+            nbrEntries +=1;
+
+        }
+
+        System.out.println("NOMBRE TOTAL D'ENTREES : " + nbrEntries);
+        cursor.close();
+    }
+
     private void assertTrue(boolean exists) {
     }
 
     // TODO : creation d'une "ou"
     // TODO : creation d'une "ou" + une "ou" enfant
-    // TODO : classe de connection
 }
