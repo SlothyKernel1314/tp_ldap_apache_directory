@@ -1,35 +1,55 @@
-package com.iat.tpldapapachedirectory;
+package com.iat.tpldapapachedirectory.service;
 
+import com.iat.tpldapapachedirectory.configuration.GlobalProperties;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapNetworkConnection;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Configuration
-@EnableConfigurationProperties(ConfigurationProperties.class)
+@Component
 public class ConnectionService {
 
-    ConfigurationProperties configurationProperties = new ConfigurationProperties();
+    @Autowired
+    private GlobalProperties globalProperties;
 
-        final String domain = "dc=world-company,dc=org";
-        final String password = "secret";
+
+        String domain = "dc=world-company,dc=org";
+        String password = "secret";
 //    String domain = configurationProperties.getDomain();
 //    String password = configurationProperties.getPassword();
 
+
+    public GlobalProperties getGlobalProperties() {
+        return globalProperties;
+    }
+
+    public void setGlobalProperties(GlobalProperties globalProperties) {
+        this.globalProperties = globalProperties;
+    }
+
     public String getDomain() {
         return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public LdapConnection bindingConnection() {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public LdapNetworkConnection bindingConnection() {
         // Opening a connection
-        LdapConnection connection = new LdapNetworkConnection("localhost", 389);
+
+        LdapNetworkConnection connection = new LdapNetworkConnection("localhost", 389);
         try {
             // Secure binding
             connection.bind("cn=admin,"+ domain, password);

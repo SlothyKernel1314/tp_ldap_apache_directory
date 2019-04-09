@@ -1,10 +1,9 @@
-package com.iat.tpldapapachedirectory;
+package com.iat.tpldapapachedirectory.configuration;
 
-import org.springframework.validation.annotation.Validated;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@org.springframework.boot.context.properties.ConfigurationProperties(prefix="ldap.configuration")
-@Validated
-public class ConfigurationProperties {
+@ConfigurationProperties(prefix="tpldapapachedirectory.ldap")
+public class GlobalProperties {
 
     private String domain;
     private String password;

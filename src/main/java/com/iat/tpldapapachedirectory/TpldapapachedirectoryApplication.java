@@ -1,15 +1,17 @@
 package com.iat.tpldapapachedirectory;
 
-import org.apache.directory.api.ldap.model.exception.LdapException;
+import com.iat.tpldapapachedirectory.service.ConnectionService;
+import com.iat.tpldapapachedirectory.configuration.GlobalProperties;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapNetworkConnection;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
+@Configuration
+@EnableConfigurationProperties(GlobalProperties.class)
 public class TpldapapachedirectoryApplication {
 
     // doc : https://directory.apache.org/api/gen-docs/latest2/apidocs/
@@ -24,7 +26,7 @@ public class TpldapapachedirectoryApplication {
 
         String domain = connectionService.getDomain();
 
-        LdapConnection connection = connectionService.bindingConnection();
+        LdapNetworkConnection connection = connectionService.bindingConnection();
 
         // CREATE CONNECTION TO LDAP DONE ==============================================================================
 
