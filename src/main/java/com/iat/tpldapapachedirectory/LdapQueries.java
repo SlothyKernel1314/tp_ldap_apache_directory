@@ -207,5 +207,17 @@ public class LdapQueries {
         assertTrue(connection.exists("ou="+ou+", "+domain+""));
     }
 
+    /**
+     * Delete the entry (an organizational unit) with the given distinguished name to the LDAP server
+     * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
+     * @param domain : a LDAP domain
+     */
+    public void deleteOu(LdapConnection connection, String domain,String ou) throws Exception {
+
+        connection.delete("ou="+ou+", "+domain+"");
+    }
+
+
+
     private void assertTrue(boolean exists) { }
 }
