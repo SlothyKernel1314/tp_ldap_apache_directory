@@ -65,6 +65,8 @@ public class ConnectionService {
 //        ldapQueries.findAllOu(connection, globalProperties.getDomain());
 //        ldapQueries.addOu(connection, globalProperties.getDomain(), "pions");
 //        ldapQueries.deleteOu(connection, globalProperties.getDomain(), "pions");
+//        ldapQueries.renameOu(connection, "ou=pions,dc=vinci-melun,dc=org",
+//                "ou=aed,dc=vinci-melun,dc=org", true);
 
         // END TEST CASES ==============================================================================================
 

@@ -156,7 +156,7 @@ public class LdapQueries {
     }
 
     /**
-     * Moves and renames the given entryDn. The old relative distinguished name will be deleted.
+     * Move and rename the given entryDn. The old relative distinguished name will be deleted.
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
      * @param oldDn : The old relative distinguished name will be deleted
      * @param newDn : The new relative distinguished name
@@ -215,6 +215,19 @@ public class LdapQueries {
     public void deleteOu(LdapConnection connection, String domain,String ou) throws Exception {
 
         connection.delete("ou="+ou+", "+domain+"");
+    }
+
+    /**
+     * Renames the given entryDn with new relative distinguished name and deletes the old relative distinguished name
+     * if deleteOldRdn is set to true
+     * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
+     * @param entryDn : The old relative distinguished name will be deleted
+     * @param newDn : The new relative distinguished name
+     * @param deleteOldDn : Tells if the old relative distinguished name must be removed (true = removed)
+     */
+    public void renameOu(LdapConnection connection, String entryDn, String newDn,
+                                    boolean deleteOldDn) throws LdapException {
+        connection.moveAndRename(entryDn, newDn, deleteOldDn);
     }
 
 
