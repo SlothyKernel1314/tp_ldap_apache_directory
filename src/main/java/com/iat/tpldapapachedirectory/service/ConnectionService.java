@@ -50,7 +50,7 @@ public class ConnectionService {
 
         // TEST CASES ==================================================================================================
 
-//        ldapQueries.findAllAdm(connection, globalProperties.getDomain());
+        ldapQueries.findAllAdm(connection, globalProperties.getDomain());
 //        ldapQueries.findAllPersons(connection, globalProperties.getDomain());
 //        ldapQueries.addPerson(connection, globalProperties.getDomain(), "kmitroglou", "Mitroglou");
 //        ldapQueries.deletePerson(connection, globalProperties.getDomain(), "kmitroglou");
@@ -64,7 +64,7 @@ public class ConnectionService {
 //                "cn=kmitroglou,ou=profs,dc=vinci-melun,dc=org", true);
 //        ldapQueries.findAllOu(connection, globalProperties.getDomain());
 //        ldapQueries.addOu(connection, globalProperties.getDomain(), "pions");
-        ldapQueries.deleteOu(connection, globalProperties.getDomain(), "pions");
+//        ldapQueries.deleteOu(connection, globalProperties.getDomain(), "pions");
 
         // END TEST CASES ==============================================================================================
 
