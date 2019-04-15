@@ -1,6 +1,5 @@
 package com.iat.tpldapapachedirectory.service;
 
-import com.iat.tpldapapachedirectory.LdapQueries;
 import com.iat.tpldapapachedirectory.configuration.GlobalProperties;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.ldap.client.api.LdapConnection;

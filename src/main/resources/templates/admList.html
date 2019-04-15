@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Admins</title>
+</head>
+<body>
+<div>
+    <h2 th:text="'Liste des Admins'">Liste des Admins</h2>
+    <h3 th:text="${msg}">msg</h3>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Catégorie</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="admin : ${admins}">
+            <td>
+                <a th:text="${admin.name}"></a>
+            </td>
+            <td>
+                <a th:text="${admin.category}"></a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

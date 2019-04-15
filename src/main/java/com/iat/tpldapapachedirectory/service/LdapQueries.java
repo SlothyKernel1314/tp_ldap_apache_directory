@@ -1,22 +1,26 @@
-package com.iat.tpldapapachedirectory;
+package com.iat.tpldapapachedirectory.service;
 
+import com.iat.tpldapapachedirectory.model.User;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.EntryCursor;
 import org.apache.directory.api.ldap.model.entry.*;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.ldap.client.api.LdapConnection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class LdapQueries {
 
     /**
-     * Performs search using a search of all persons in a LDAP domain (SearchScope.SearchScope.SUBTREE)
+     * Performs search using a search of all persons in a LDAP model (SearchScope.SearchScope.SUBTREE)
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      */
     public void findAllPersons(LdapConnection connection, String domain) throws LdapException, CursorException, IOException {
 
@@ -40,9 +44,11 @@ public class LdapQueries {
     /**
      * Performs search using a search of all persons in a LDAP organizational unit (SearchScope.ONELEVEL)
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      */
-    public void findAllAdm(LdapConnection connection, String domain) throws LdapException, CursorException, IOException {
+    public ArrayList<Entry> findAllAdm(LdapConnection connection, String domain) throws LdapException, CursorException, IOException {
+
+        ArrayList<Entry> entries = new ArrayList<>();
 
         // Root : ou=adm ; parse : all adm, only adm (one level)
         EntryCursor cursor = connection.search( "ou=adm, "+domain+"", "(objectclass=*)", SearchScope.ONELEVEL, "*" );
@@ -52,18 +58,22 @@ public class LdapQueries {
         {
             Entry entry = cursor.get();
             System.out.println(entry);
+            entries.add(entry);
             nbrEntries +=1;
 
         }
 
         System.out.println("NOMBRE TOTAL D'ENTREES : " + nbrEntries);
+
         cursor.close();
+
+        return entries;
     }
 
     /**
      * Add an entry (a person) to the LDAP server
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      * @param cn : a LDAP common name
      * @param sn : a LDAP surname
      */
@@ -85,7 +95,7 @@ public class LdapQueries {
     /**
      * Delete the entry (a person) with the given distinguished name to the LDAP server
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      * @param cn : a LDAP common name
      */
     public void deletePerson(LdapConnection connection, String domain, String cn) throws Exception {
@@ -97,7 +107,7 @@ public class LdapQueries {
      * Applies all the modifications (add attributes + values = ModificationOperation.ADD_ATTRIBUTE)...
      * ... to the entry (a person) specified by its distinguished name
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      * @param cn : a LDAP common name
      * @param attributeId1 : first attribute to add
      * @param value1 : first value to add
@@ -119,7 +129,7 @@ public class LdapQueries {
      * Applies all the modifications (remove attributes = ModificationOperation.REMOVE_ATTRIBUTE)...
      * ... to the entry (a person) specified by its distinguished name
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      * @param cn : a LDAP common name
      * @param attributeId1 : first attribute to remove
      * @param attributeId2 : second attribute to remove
@@ -137,7 +147,7 @@ public class LdapQueries {
      * Applies all the modifications (replace attributes + values = ModificationOperation.REPLACE_ATTRIBUTE)...
      * ... to the entry (a person) specified by its distinguished name
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      * @param cn : a LDAP common name
      * @param attributeId1 : first attribute to replace
      * @param value1 : first value to replace
@@ -168,9 +178,9 @@ public class LdapQueries {
     }
 
     /**
-     * Performs search using a search of all organizational unit in a LDAP domain (SearchScope.SearchScope.ONELEVEL)
+     * Performs search using a search of all organizational unit in a LDAP model (SearchScope.SearchScope.ONELEVEL)
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      */
     public void findAllOu(LdapConnection connection, String domain) throws LdapException, CursorException, IOException {
 
@@ -193,7 +203,7 @@ public class LdapQueries {
     /**
      * Add an entry (an organizational unit) to the LDAP server
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      * @param ou : an organizational unit
      */
     public void addOu(LdapConnection connection, String domain, String ou) throws LdapException {
@@ -210,7 +220,7 @@ public class LdapQueries {
     /**
      * Delete the entry (an organizational unit) with the given distinguished name to the LDAP server
      * @param connection : an instance of LdapNetworkConnection (interface LdapConnection)
-     * @param domain : a LDAP domain
+     * @param domain : a LDAP model
      */
     public void deleteOu(LdapConnection connection, String domain,String ou) throws Exception {
 
