@@ -17,7 +17,9 @@ import java.util.ArrayList;
 @Component
 public class UserDao {
 
-    // documentation : https://directory.apache.org/api/user-guide/6.12-entry.html
+    // documentation
+    // https://directory.apache.org/api/user-guide/6.12-entry.html
+    // https://www.tutorialspoint.com/java/java_mapentry_interface.htm
 
     @Autowired
     LdapQueries ldapQueries;
@@ -32,7 +34,7 @@ public class UserDao {
         LdapNetworkConnection connection = connectionService.openConnection();
         ArrayList<Entry> entries = ldapQueries.findAllAdm(connection, globalProperties.getDomain());
         ArrayList<User> admins = new ArrayList<>();
-        for (Entry entry: entries) {
+        for (Entry entry : entries) {
             // TODO : vérifier si le design pattern utilisé ici (LdapQueries + UserDao + UserController) est efficient
             User user = new User();
             user.setCategory(entry.get("radiusTunnelPrivateGroupId").get().toString());

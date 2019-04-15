@@ -3,10 +3,8 @@ package com.iat.tpldapapachedirectory.model;
 
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
-public class User  {
+public class User {
 
     private String name; // sn
     private String category; // radiusTunnelPrivateGroup

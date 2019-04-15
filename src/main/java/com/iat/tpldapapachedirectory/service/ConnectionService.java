@@ -25,7 +25,7 @@ public class ConnectionService {
                 globalProperties.getHost());
         try {
             // secure binding
-            connection.bind("cn=admin,"+ globalProperties.getDomain(), globalProperties.getPassword());
+            connection.bind("cn=admin," + globalProperties.getDomain(), globalProperties.getPassword());
         } catch (
                 LdapException e) {
             e.printStackTrace();
